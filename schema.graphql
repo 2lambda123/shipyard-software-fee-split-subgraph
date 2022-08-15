@@ -1,6 +1,35 @@
-type ExampleEntity @entity {
+enum LpTransactionType {
+  Deposit
+  Withdrawal
+}
+
+type Fee @entity(immutable: true) {
   id: ID!
-  count: BigInt!
-  entitledFeesInDollars: BigInt! # uint256
-  averagePoolBalanceInDollars: BigInt! # uint256
+  hash: String!
+  ## pool tokens taken by the AdmiralDAO multisig.
+  poolTokens: BigDecimal!
+  ## pool token value in usd at the time of tx
+  valueInUsd: BigDecimal!
+  ## entitled fees are generally half of the overall fee value
+  entitledValueInUsd: BigDecimal!
+  ## from the smart contract
+  avgPoolBalanceInDollars: BigDecimal!
+  ## unix timestamp of when the tx occurred
+  timestamp: BigInt!
+}
+
+type LpTransaction @entity(immutable: true) {
+  id: ID!
+  ## Hash of the transaction.
+  hash: String!
+  ## Either a Deposit or Withdrawal
+  transactionType: LpTransactionType!
+  ## pool tokens deposited or withdrawn
+  poolTokens: BigDecimal!
+  ## pool token value in usd at the time of tx
+  valueInUsd: BigDecimal!
+  ## unix timestamp of when the tx occurred
+  timestamp: BigInt!
+  ## sender of the transaction
+  sender: String!
 }
