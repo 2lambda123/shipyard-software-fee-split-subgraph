@@ -5,7 +5,7 @@ enum LpTransactionType {
 
 type Fee @entity(immutable: true) {
   id: ID!
-  hash: String!
+  hash: Bytes!
   ## pool tokens taken by the AdmiralDAO multisig.
   poolTokens: BigDecimal!
   ## pool token value in usd at the time of tx
@@ -21,7 +21,7 @@ type Fee @entity(immutable: true) {
 type LpTransaction @entity(immutable: true) {
   id: ID!
   ## Hash of the transaction.
-  hash: String!
+  hash: Bytes!
   ## Either a Deposit or Withdrawal
   transactionType: LpTransactionType!
   ## pool tokens deposited or withdrawn
@@ -31,5 +31,5 @@ type LpTransaction @entity(immutable: true) {
   ## unix timestamp of when the tx occurred
   timestamp: BigInt!
   ## sender of the transaction
-  sender: String!
+  sender: Bytes!
 }

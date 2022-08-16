@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x51b0efa27ff4f29f8315496f01952377d581ce73"
       abi: FeeSplit
+      startBlock: 15304973
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -33,6 +34,4 @@ dataSources:
           handler: handleLPDeposited
         - event: LPWithdrawn(indexed address,uint256,uint256)
           handler: handleLPWithdrawn
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
       file: ./src/fee-split.ts

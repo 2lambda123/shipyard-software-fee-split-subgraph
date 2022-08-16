@@ -1,5 +1,6 @@
 import { Address, BigDecimal, BigInt, log } from "@graphprotocol/graph-ts";
 import { ClipperVerifiedExchange } from "../../types/FeeSplit/ClipperVerifiedExchange";
+import { BIG_DECIMAL_ZERO } from "../constants";
 import { getUsdPrice } from "./prices";
 import {
   fetchTokenBalance,
@@ -42,4 +43,17 @@ export function getPoolTokenSupply(poolId: string): BigInt {
   let poolTokenSupply = poolContract.totalSupply();
 
   return poolTokenSupply;
+}
+
+export function getPoolTokenValue(
+  poolLiquidity: BigDecimal,
+  totalSupply: BigInt,
+  poolTokenAmount: BigInt
+): BigDecimal {
+  if (totalSupply.isZero()) return BIG_DECIMAL_ZERO;
+
+  let poolTokenPercentage = poolTokenAmount.div(totalSupply);
+  let poolTokenValue = poolLiquidity.times(poolTokenPercentage.toBigDecimal());
+
+  return poolTokenValue;
 }
