@@ -1,7 +1,7 @@
 import { Address, TypedMap } from "@graphprotocol/graph-ts";
 
 export let clipperExchangeAddress = Address.fromString(
-  "0xcc12532e95c2a6a4c53af153b9b739a3cc9218a7"
+  "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216c"
 );
 
 export let PriceOracleAddresses = new TypedMap<string, string>();
