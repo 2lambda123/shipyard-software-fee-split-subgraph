@@ -1,8 +1,12 @@
 import { Address, BigDecimal, BigInt, log } from "@graphprotocol/graph-ts";
 import { convertTokenToDecimal } from ".";
 import { ERC20 } from "../../types/FeeSplit/ERC20";
-import { AddressZeroName, AddressZeroSymbol } from "../constants/addresses";
-import { ADDRESS_ZERO, BIG_INT_ONE } from "../constants";
+import {
+  AddressZeroName,
+  AddressZeroSymbol,
+  ADDRESS_ZERO,
+} from "../constants/addresses";
+import { BIG_INT_ONE } from "../constants";
 
 export function fetchTokenSymbol(tokenAddress: Address): string {
   let contract = ERC20.bind(tokenAddress);

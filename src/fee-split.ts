@@ -2,7 +2,6 @@ import {
   FeesTaken,
   LPDeposited,
   LPWithdrawn,
-  OwnershipTransferred,
 } from "../types/FeeSplit/FeeSplit";
 import { Fee, LpTransaction } from "../types/schema";
 import { BIG_INT_EIGHTEEN } from "./constants";
@@ -16,10 +15,8 @@ import {
 
 export function handleFeesTaken(event: FeesTaken): void {
   let txHash = event.transaction.hash;
-  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress.toHexString());
-  let poolTokenSupply = getPoolTokenSupply(
-    clipperExchangeAddress.toHexString()
-  );
+  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress);
+  let poolTokenSupply = getPoolTokenSupply(clipperExchangeAddress);
 
   let fee = new Fee(txHash.toHexString());
   fee.hash = txHash;
@@ -27,13 +24,18 @@ export function handleFeesTaken(event: FeesTaken): void {
   fee.entitledValueInUsd = event.params.entitledFeesInDollars.toBigDecimal();
 
   let transferredPoolTokens = event.params.tokensTransferred;
-  let transferedPoolTokensValueInUsd = getPoolTokenValue(
+
+  let transferredPoolTokensValueInUsd = getPoolTokenValue(
     liquidity,
     poolTokenSupply,
     transferredPoolTokens
   );
 
-  fee.valueInUsd = transferedPoolTokensValueInUsd;
+  fee.valueInUsd = transferredPoolTokensValueInUsd;
+  fee.poolTokens = convertTokenToDecimal(
+    transferredPoolTokens,
+    BIG_INT_EIGHTEEN
+  );
   fee.timestamp = event.block.timestamp;
 
   fee.save();
@@ -42,10 +44,8 @@ export function handleFeesTaken(event: FeesTaken): void {
 export function handleLPDeposited(event: LPDeposited): void {
   let txHash = event.transaction.hash;
   let lpDeposit = new LpTransaction(txHash.toHexString());
-  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress.toHexString());
-  let poolTokenSupply = getPoolTokenSupply(
-    clipperExchangeAddress.toHexString()
-  );
+  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress);
+  let poolTokenSupply = getPoolTokenSupply(clipperExchangeAddress);
   let poolTokens = event.params.depositAmount;
   let poolTokensValueInUsd = getPoolTokenValue(
     liquidity,
@@ -66,10 +66,8 @@ export function handleLPDeposited(event: LPDeposited): void {
 export function handleLPWithdrawn(event: LPWithdrawn): void {
   let txHash = event.transaction.hash;
   let lpWithdrawal = new LpTransaction(txHash.toHexString());
-  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress.toHexString());
-  let poolTokenSupply = getPoolTokenSupply(
-    clipperExchangeAddress.toHexString()
-  );
+  let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress);
+  let poolTokenSupply = getPoolTokenSupply(clipperExchangeAddress);
   let poolTokens = event.params.withdrawnTokens;
   let poolTokensValueInUsd = getPoolTokenValue(
     liquidity,

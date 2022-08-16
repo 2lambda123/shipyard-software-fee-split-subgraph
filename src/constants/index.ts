@@ -1,7 +1,5 @@
 import { BigInt, BigDecimal } from "@graphprotocol/graph-ts";
 
-export const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
-
 export let BIG_DECIMAL_ZERO = BigDecimal.fromString("0");
 export let BIG_DECIMAL_ONE = BigDecimal.fromString("1");
 export let BIG_INT_ZERO = BigInt.fromI32(0);

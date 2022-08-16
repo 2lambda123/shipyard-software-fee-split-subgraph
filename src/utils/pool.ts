@@ -8,8 +8,7 @@ import {
   fetchTokenSymbol,
 } from "./token";
 
-export function getCurrentPoolLiquidity(poolId: string): BigDecimal {
-  let poolAddress = Address.fromString(poolId);
+export function getCurrentPoolLiquidity(poolAddress: Address): BigDecimal {
   let poolContract = ClipperVerifiedExchange.bind(poolAddress);
   let nTokens = poolContract.nTokens();
   let currentLiquidity = BigDecimal.fromString("0");
@@ -21,7 +20,7 @@ export function getCurrentPoolLiquidity(poolId: string): BigDecimal {
       let tokenSymbol = fetchTokenSymbol(tokenAddress);
       let tokenDecimals = fetchTokenDecimals(tokenAddress);
       let tokenBalance = fetchTokenBalance(
-        tokenAddress.toString(),
+        tokenAddress.toHexString(),
         poolAddress,
         tokenDecimals.toI32()
       );
@@ -30,15 +29,14 @@ export function getCurrentPoolLiquidity(poolId: string): BigDecimal {
 
       currentLiquidity = currentLiquidity.plus(usdTokenLiquidity);
     } else {
-      log.info("Not able to fetch nToken {}", [i.toString()]);
+      log.warning("Not able to fetch nToken {}", [i.toString()]);
     }
   }
 
   return currentLiquidity;
 }
 
-export function getPoolTokenSupply(poolId: string): BigInt {
-  let poolAddress = Address.fromString(poolId);
+export function getPoolTokenSupply(poolAddress: Address): BigInt {
   let poolContract = ClipperVerifiedExchange.bind(poolAddress);
   let poolTokenSupply = poolContract.totalSupply();
 
@@ -52,8 +50,10 @@ export function getPoolTokenValue(
 ): BigDecimal {
   if (totalSupply.isZero()) return BIG_DECIMAL_ZERO;
 
-  let poolTokenPercentage = poolTokenAmount.div(totalSupply);
-  let poolTokenValue = poolLiquidity.times(poolTokenPercentage.toBigDecimal());
+  let poolTokenPercentage = poolTokenAmount
+    .toBigDecimal()
+    .div(totalSupply.toBigDecimal());
+  let poolTokenValue = poolLiquidity.times(poolTokenPercentage);
 
   return poolTokenValue;
 }
