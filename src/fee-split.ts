@@ -4,8 +4,9 @@ import {
   LPWithdrawn,
 } from "../types/FeeSplit/FeeSplit";
 import { Fee, LpTransaction } from "../types/schema";
-import { BIG_INT_EIGHTEEN } from "./constants";
+import { BIG_INT_EIGHTEEN, BIG_INT_ONE } from "./constants";
 import { clipperExchangeAddress } from "./constants/addresses";
+import { loadFeeSplitStatus } from "./entities";
 import { convertTokenToDecimal } from "./utils";
 import {
   getCurrentPoolLiquidity,
@@ -38,6 +39,15 @@ export function handleFeesTaken(event: FeesTaken): void {
   );
   fee.timestamp = event.block.timestamp;
 
+  let contractStatus = loadFeeSplitStatus(event.address);
+  contractStatus.feesTakenTransactionCount = contractStatus.feesTakenTransactionCount.plus(
+    BIG_INT_ONE
+  );
+  contractStatus.totalFeesTaken = contractStatus.totalFeesTaken.plus(
+    convertTokenToDecimal(transferredPoolTokens, BIG_INT_EIGHTEEN)
+  );
+
+  contractStatus.save();
   fee.save();
 }
 
@@ -60,6 +70,12 @@ export function handleLPDeposited(event: LPDeposited): void {
   lpDeposit.sender = event.params.depositor;
   lpDeposit.timestamp = event.block.timestamp;
 
+  let contractStatus = loadFeeSplitStatus(event.address);
+  contractStatus.lpTransactionCount = contractStatus.lpTransactionCount.plus(
+    BIG_INT_ONE
+  );
+
+  contractStatus.save();
   lpDeposit.save();
 }
 
@@ -82,5 +98,11 @@ export function handleLPWithdrawn(event: LPWithdrawn): void {
   lpWithdrawal.sender = event.params.depositor;
   lpWithdrawal.timestamp = event.block.timestamp;
 
+  let contractStatus = loadFeeSplitStatus(event.address);
+  contractStatus.lpTransactionCount = contractStatus.lpTransactionCount.plus(
+    BIG_INT_ONE
+  );
+
+  contractStatus.save();
   lpWithdrawal.save();
 }

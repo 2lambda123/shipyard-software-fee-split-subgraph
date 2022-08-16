@@ -3,33 +3,44 @@ enum LpTransactionType {
   Withdrawal
 }
 
+type ContractStatus @entity {
+  id: ID!
+  contractAddress: Bytes!
+  "Total fees transferred from `FeesTaken` events"
+  totalFeesTaken: BigDecimal!
+  "Amount of transactions corresponding to `FeesTaken` event"
+  feesTakenTransactionCount: BigInt!
+  "Amount of transactions corresponding to `LPDeposited` and `LPWithdrawn` events"
+  lpTransactionCount: BigInt!
+}
+
 type Fee @entity(immutable: true) {
   id: ID!
   hash: Bytes!
-  ## pool tokens taken by the AdmiralDAO multisig.
+  "pool tokens taken by the AdmiralDAO multisig."
   poolTokens: BigDecimal!
-  ## pool token value in usd at the time of tx
+  "pool token value in usd at the time of tx"
   valueInUsd: BigDecimal!
-  ## entitled fees are generally half of the overall fee value
+  "entitled fees are generally half of the overall fee value"
   entitledValueInUsd: BigDecimal!
-  ## from the smart contract
+  "from the smart contract"
   avgPoolBalanceInDollars: BigDecimal!
-  ## unix timestamp of when the tx occurred
+  "unix timestamp of when the tx occurred"
   timestamp: BigInt!
 }
 
 type LpTransaction @entity(immutable: true) {
   id: ID!
-  ## Hash of the transaction.
+  "Hash of the transaction."
   hash: Bytes!
-  ## Either a Deposit or Withdrawal
+  "Either a Deposit or Withdrawal"
   transactionType: LpTransactionType!
-  ## pool tokens deposited or withdrawn
+  "pool tokens deposited or withdrawn"
   poolTokens: BigDecimal!
-  ## pool token value in usd at the time of tx
+  "pool token value in usd at the time of tx"
   valueInUsd: BigDecimal!
-  ## unix timestamp of when the tx occurred
+  "unix timestamp of when the tx occurred"
   timestamp: BigInt!
-  ## sender of the transaction
+  "sender of the transaction"
   sender: Bytes!
 }
