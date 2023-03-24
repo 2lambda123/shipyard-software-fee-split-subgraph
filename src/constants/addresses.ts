@@ -1,8 +1,28 @@
 import { Address, TypedMap } from "@graphprotocol/graph-ts";
 
-export let clipperExchangeAddress = Address.fromString(
-  "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216c"
+export let CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT = new TypedMap<
+  string, //lowercase address of fee split
+  string
+>();
+CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
+  "0x51b0efa27ff4f29f8315496f01952377d581ce73".toLowerCase(), // v4 fee split
+  "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216c" // v3 verified caravel
 );
+CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
+  "0x51b0efa27ff4f29f8315496f01952377d581ce72".toLowerCase(), // v5 protocol deposit
+  "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216d" // v5 approx caravel
+);
+
+export function getExchangeAddress(feeSplitAddress: Address): Address {
+  let exchangeAddress = CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.get(
+    feeSplitAddress.toHexString().toLowerCase()
+  );
+  return Address.fromString(
+    exchangeAddress
+      ? exchangeAddress
+      : "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216c"
+  );
+}
 
 export let PriceOracleAddresses = new TypedMap<string, string>();
 PriceOracleAddresses.set("WETH", "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419"); // eth / usd chainlink oracle

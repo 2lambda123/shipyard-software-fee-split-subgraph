@@ -2,7 +2,7 @@ import { BigInt, ethereum } from "@graphprotocol/graph-ts";
 
 import { Fee } from "../../types/schema";
 import { BIG_INT_EIGHTEEN, BIG_INT_ONE } from "../constants";
-import { clipperExchangeAddress } from "../constants/addresses";
+import { getExchangeAddress } from "../constants/addresses";
 import { loadFeeSplitStatus } from "../entities";
 import { convertTokenToDecimal } from "../utils";
 import {
@@ -17,6 +17,7 @@ export function createFee(
   averagePoolBalanceInDollars: BigInt,
   tokensTransferred: BigInt
 ): Fee {
+  let clipperExchangeAddress = getExchangeAddress(event.address);
   let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress);
   let poolTokenSupply = getPoolTokenSupply(clipperExchangeAddress);
   let fee = new Fee(event.transaction.hash.toHexString());

@@ -1,8 +1,8 @@
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 
-import { Fee, LpTransaction } from "../../types/schema";
+import { LpTransaction } from "../../types/schema";
 import { BIG_INT_EIGHTEEN, BIG_INT_ONE } from "../constants";
-import { clipperExchangeAddress } from "../constants/addresses";
+import { getExchangeAddress } from "../constants/addresses";
 import { loadFeeSplitStatus } from "../entities";
 import { convertTokenToDecimal } from "../utils";
 import {
@@ -17,6 +17,7 @@ export function createLpTransaction(
   sender: Address,
   transactionType: "Deposit" | "Withdraw"
 ): LpTransaction {
+  let clipperExchangeAddress = getExchangeAddress(event.address);
   let lpTransaction = new LpTransaction(event.transaction.hash.toHexString());
   let liquidity = getCurrentPoolLiquidity(clipperExchangeAddress);
   let poolTokenSupply = getPoolTokenSupply(clipperExchangeAddress);
