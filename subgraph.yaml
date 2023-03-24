@@ -35,3 +35,32 @@ dataSources:
         - event: LPWithdrawn(indexed address,uint256,uint256)
           handler: handleLPWithdrawn
       file: ./src/fee-split.ts
+  - kind: ethereum
+    name: ClipperProtocolDeposit
+    network: mainnet
+    source:
+      address: "0x51b0efa27ff4f29f8315496f01952377d581ce73"
+      abi: ClipperProtocolDeposit
+      startBlock: 15304773
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ClipperProtocolDepositFeesTaken
+        - ClipperProtocolDepositLPDeposited
+        - ClipperProtocolDepositLPWithdrawn
+        - ClipperProtocolDepositOwnershipTransferred
+      abis:
+        - name: ClipperProtocolDeposit
+          file: ./abis/ClipperProtocolDeposit.json
+      eventHandlers:
+        - event: ClipperProtocolDepositFeesTaken(uint256,uint256,uint256)
+          handler: handleClipperProtocolDepositFeesTaken
+        - event: ClipperProtocolDepositLPDeposited(indexed address,uint256,uint256)
+          handler: handleClipperProtocolDepositLPDeposited
+        - event: ClipperProtocolDepositLPWithdrawn(indexed address,uint256,uint256)
+          handler: handleClipperProtocolDepositLPWithdrawn
+        - event: ClipperProtocolDepositOwnershipTransferred(indexed address,indexed address)
+          handler: handleClipperProtocolDepositOwnershipTransferred
+      file: ./src/clipper-protocol-deposit.ts
