@@ -15,7 +15,7 @@ export function createLpTransaction(
   event: ethereum.Event,
   poolTokens: BigInt,
   sender: Address,
-  transactionType: "Deposit" | "Withdraw"
+  transactionType: string
 ): LpTransaction {
   let clipperExchangeAddress = getExchangeAddress(event.address);
   let lpTransaction = new LpTransaction(event.transaction.hash.toHexString());
