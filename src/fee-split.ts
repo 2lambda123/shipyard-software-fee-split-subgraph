@@ -30,6 +30,6 @@ export function handleLPWithdrawn(event: LPWithdrawn): void {
     event,
     event.params.withdrawnTokens,
     event.params.depositor,
-    "Withdraw"
+    "Withdrawal"
   );
 }

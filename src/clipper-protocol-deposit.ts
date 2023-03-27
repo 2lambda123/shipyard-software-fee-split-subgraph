@@ -36,6 +36,6 @@ export function handleClipperProtocolDepositLPWithdrawn(
     event,
     event.params.clipperLPWithdrawn,
     event.params.depositor,
-    "Withdraw"
+    "Withdrawal"
   );
 }
