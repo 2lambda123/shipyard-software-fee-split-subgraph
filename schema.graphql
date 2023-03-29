@@ -43,4 +43,6 @@ type LpTransaction @entity(immutable: true) {
   timestamp: BigInt!
   "sender of the transaction"
   sender: Bytes!
+  "contract that the transaction was sent to"
+  contract: ContractStatus
 }
