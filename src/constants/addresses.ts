@@ -9,8 +9,8 @@ CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
   "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216c" // v3 verified caravel
 );
 CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
-  "0x51b0efa27ff4f29f8315496f01952377d581ce72".toLowerCase(), // v5 protocol deposit
-  "0xe7b0ce0526fbe3969035a145c9e9691d4d9d216d" // v5 approx caravel
+  "0x84f4625C3E92b368E403cB002A9bF9bc7a9ae1b9".toLowerCase(), // v5 protocol deposit
+  "0x655eDCE464CC797526600a462A8154650EEe4B77" // v5 approx caravel
 );
 
 export function getExchangeAddress(feeSplitAddress: Address): Address {
