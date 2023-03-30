@@ -1,13 +1,12 @@
 import {
-  ClipperProtocolDepositFeesTaken as ClipperProtocolDepositFeesTakenEvent,
-  ClipperProtocolDepositLPDeposited as ClipperProtocolDepositLPDepositedEvent,
-  ClipperProtocolDepositLPWithdrawn as ClipperProtocolDepositLPWithdrawnEvent,
-  ClipperProtocolDepositOwnershipTransferred as ClipperProtocolDepositOwnershipTransferredEvent,
+  FeesTaken as ClipperProtocolDepositFeesTakenEvent,
+  LPDeposited as ClipperProtocolDepositLPDepositedEvent,
+  LPWithdrawn as ClipperProtocolDepositLPWithdrawnEvent,
 } from "../types/ClipperProtocolDeposit/ClipperProtocolDeposit";
 import { createFee } from "./entities/Fee";
 import { createLpTransaction } from "./entities/LpTransaction";
 
-export function handleClipperProtocolDepositFeesTaken(
+export function handleFeesTaken(
   event: ClipperProtocolDepositFeesTakenEvent
 ): void {
   createFee(
@@ -18,7 +17,7 @@ export function handleClipperProtocolDepositFeesTaken(
   );
 }
 
-export function handleClipperProtocolDepositLPDeposited(
+export function handleLPDeposited(
   event: ClipperProtocolDepositLPDepositedEvent
 ): void {
   createLpTransaction(
@@ -29,7 +28,7 @@ export function handleClipperProtocolDepositLPDeposited(
   );
 }
 
-export function handleClipperProtocolDepositLPWithdrawn(
+export function handleLPWithdrawn(
   event: ClipperProtocolDepositLPWithdrawnEvent
 ): void {
   createLpTransaction(

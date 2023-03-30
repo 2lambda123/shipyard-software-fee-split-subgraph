@@ -47,20 +47,18 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - ClipperProtocolDepositFeesTaken
-        - ClipperProtocolDepositLPDeposited
-        - ClipperProtocolDepositLPWithdrawn
-        - ClipperProtocolDepositOwnershipTransferred
+        - FeesTaken
+        - LPDeposited
+        - LPWithdrawn
+        - OwnershipTransferred
       abis:
         - name: ClipperProtocolDeposit
           file: ./abis/ClipperProtocolDeposit.json
       eventHandlers:
-        - event: ClipperProtocolDepositFeesTaken(uint256,uint256,uint256)
-          handler: handleClipperProtocolDepositFeesTaken
-        - event: ClipperProtocolDepositLPDeposited(indexed address,uint256,uint256)
-          handler: handleClipperProtocolDepositLPDeposited
-        - event: ClipperProtocolDepositLPWithdrawn(indexed address,uint256,uint256)
-          handler: handleClipperProtocolDepositLPWithdrawn
-        - event: ClipperProtocolDepositOwnershipTransferred(indexed address,indexed address)
-          handler: handleClipperProtocolDepositOwnershipTransferred
+        - event: FeesTaken(uint256,uint256,uint256)
+          handler: handleFeesTaken
+        - event: LPDeposited(indexed address,uint256,uint256)
+          handler: handleLPDeposited
+        - event: LPWithdrawn(indexed address,uint256,uint256)
+          handler: handleLPWithdrawn 
       file: ./src/clipper-protocol-deposit.ts
