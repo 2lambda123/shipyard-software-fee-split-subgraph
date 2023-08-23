@@ -12,6 +12,10 @@ CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
   "0x84f4625C3E92b368E403cB002A9bF9bc7a9ae1b9".toLowerCase(), // v5 protocol deposit
   "0x655eDCE464CC797526600a462A8154650EEe4B77" // v5 approx caravel
 );
+CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.set(
+  "0xD0454428ecd868A9AC615125FCbDB5Da9027436e".toLowerCase(), // v5 farm
+  "0x655eDCE464CC797526600a462A8154650EEe4B77" // v5 approx caravel
+);
 
 export function getExchangeAddress(feeSplitAddress: Address): Address {
   let exchangeAddress = CLIPPER_EXCHANGE_ADDRESS_BY_FEE_SPLIT.get(
