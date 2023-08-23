@@ -74,7 +74,7 @@ dataSources:
     source:
       address: "0xD0454428ecd868A9AC615125FCbDB5Da9027436e"
       abi: SplitFeeFarm
-      startBlock: 15304773
+      startBlock: 17970623
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
