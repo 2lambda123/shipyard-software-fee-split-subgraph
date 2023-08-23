@@ -87,6 +87,12 @@ dataSources:
       abis:
         - name: SplitFeeFarm
           file: ./abis/SplitFeeFarm.json
+        - name: ClipperVerifiedExchange
+          file: ./abis/ClipperVerifiedExchange.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: AggregatorV3Interface
+          file: ./abis/AggregatorV3Interface.json
       eventHandlers:
         - event: FeesTaken(uint256,uint256,uint256)
           handler: handleFeesTaken
