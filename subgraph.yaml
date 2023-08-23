@@ -39,7 +39,7 @@ dataSources:
     name: ClipperProtocolDeposit
     network: mainnet
     source:
-      address: "0x84f4625C3E92b368E403cB002A9bF9bc7a9ae1b9"
+      address: "0xD0454428ecd868A9AC615125FCbDB5Da9027436e"
       abi: ClipperProtocolDeposit
       startBlock: 15304773
     mapping:
