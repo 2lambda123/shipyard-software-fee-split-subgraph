@@ -27,6 +27,8 @@ type Fee @entity(immutable: true) {
   avgPoolBalanceInDollars: BigDecimal!
   "unix timestamp of when the tx occurred"
   timestamp: BigInt!
+  "contract that the transaction was sent to"
+  contract: ContractStatus
 }
 
 type LpTransaction @entity(immutable: true) {
