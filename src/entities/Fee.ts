@@ -41,6 +41,7 @@ export function createFee(
   fee.timestamp = event.block.timestamp;
 
   let contractStatus = loadFeeSplitStatus(event.address);
+  fee.contract = contractStatus.id;
   contractStatus.feesTakenTransactionCount = contractStatus.feesTakenTransactionCount.plus(
     BIG_INT_ONE
   );
